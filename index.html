@@ -9,6 +9,8 @@
 <meta property="og:description" content="Custom tattoos, done right. Walk-ins welcome daily.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231A1712'/><text y='72' x='50' text-anchor='middle' font-size='56' font-family='Georgia' fill='%23E7E0D2'>IB</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#FAF8F2">
+<noscript><style>.page{display:block!important}</style></noscript>
 <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Bebas+Neue&family=Lora:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <!--
   ============================================================
@@ -54,6 +56,8 @@
   a{color:inherit;}
   .wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
   :focus-visible{outline:3px solid var(--ox);outline-offset:2px;}
+  .skiplink{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--bg);padding:12px 18px;z-index:100;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;}
+  .skiplink:focus{left:0;}
 
   .page{display:none;}
   .page.active{display:block;animation:pageIn .4s ease;}
@@ -167,6 +171,7 @@
   button.submit{margin-top:22px;width:100%;background:var(--ox);color:#FAF8F2;border:2px solid var(--ink);padding:16px;font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;box-shadow:4px 4px 0 var(--ink);transition:background .2s,transform .15s,box-shadow .15s;}
   button.submit:hover,button.submit:focus-visible{background:var(--ox-h);transform:translate(1px,1px);box-shadow:2px 2px 0 var(--ink);}
   .form-note{margin-top:12px;font-size:.88rem;text-align:center;color:var(--mut);}
+  .req-summary{margin-top:20px;border-left:4px solid var(--ox);background:var(--paper);padding:12px 16px;font-size:.93rem;font-style:italic;color:var(--ink);}
   .deposit-strip{margin-top:20px;border:1.5px dashed var(--ink);padding:13px 16px;font-size:.9rem;background:var(--paper);color:var(--ink);}
 
   .merchgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
@@ -259,8 +264,22 @@
   }
   @media(max-width:560px){.artists,.care,.stylegrid,.gallery{grid-template-columns:1fr;}}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TattooParlor",
+  "name": "Iron Bell Tattoo",
+  "description": "Custom tattoo studio in downtown Santa Barbara. Walk-ins welcome daily.",
+  "telephone": "+1-805-555-0134",
+  "address": {"@type": "PostalAddress", "streetAddress": "1230 Sample St", "addressLocality": "Santa Barbara", "addressRegion": "CA", "postalCode": "93101"},
+  "openingHours": ["Mo-Sa 12:00-20:00", "Su 12:00-18:00"],
+  "priceRange": "$$"
+}
+</script>
 </head>
 <body>
+
+<a class="skiplink" href="#main-content">Skip to content</a>
 
 <div class="util">
   <div class="wrap">
@@ -292,7 +311,7 @@
   </div>
 </header>
 
-<main>
+<main id="main-content">
 
   <!-- ============ HOME ============ -->
   <div class="page" id="page-home">
@@ -545,6 +564,16 @@
                     <option>$200 – $500</option>
                     <option>$500 – $1,000</option>
                     <option>$1,000+ / multi-session</option>
+                    <option>Not sure — quote me</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="b-timing">When works for you?</label>
+                  <select id="b-timing">
+                    <option>Flexible — first opening</option>
+                    <option>Weekday afternoons</option>
+                    <option>Weekday evenings</option>
+                    <option>Weekends</option>
                   </select>
                 </div>
                 <div>
@@ -556,6 +585,7 @@
               <textarea id="b-idea" rows="4" placeholder="The idea, any imagery you love, and anything it needs to work around (existing tattoos, scars)..."></textarea>
               <label for="b-email">Email</label>
               <input id="b-email" type="email" autocomplete="email" required>
+              <div class="req-summary" id="reqSummary" aria-live="polite">Your request so far: pick an artist, style, and placement above and it builds itself here.</div>
               <div class="checkline"><input id="b-first" type="checkbox"><label for="b-first">This is my first tattoo</label></div>
               <div class="checkline"><input id="b-age" type="checkbox" required><label for="b-age">I'm 18+ and can show valid ID</label></div>
               <button class="submit" type="submit">Send booking request</button>
@@ -639,6 +669,10 @@
           <details>
             <summary>How does pricing work?</summary>
             <div class="a">Every piece is priced individually based on size, detail, and placement. You'll get a clear quote at your consult before anything is scheduled — no surprises in the chair.</div>
+          </details>
+          <details>
+            <summary>Is there a shop minimum?</summary>
+            <div class="a">Yes — like every professional studio, we have a shop minimum that covers fresh needles, inks, and full setup for even the smallest piece. Your artist will tell you the current minimum when you book.</div>
           </details>
           <details>
             <summary>Do I need an appointment?</summary>
@@ -741,7 +775,9 @@
       document.getElementById('page-'+name).classList.toggle('active',name===p);
     });
     document.querySelectorAll('[data-page]').forEach(function(a){
-      a.classList.toggle('on',a.getAttribute('data-page')===p);
+      var active=a.getAttribute('data-page')===p;
+      a.classList.toggle('on',active);
+      if(active){a.setAttribute('aria-current','page');}else{a.removeAttribute('aria-current');}
     });
     document.title=TITLES[p];
     window.scrollTo(0,0);
@@ -754,6 +790,28 @@
     m.classList.remove('open');
     document.querySelector('.burger').setAttribute('aria-expanded','false');
   }
+
+  function updateSummary(){
+    var el=document.getElementById('reqSummary'); if(!el) return;
+    var artist=document.getElementById('b-artist').value;
+    var style=document.getElementById('b-style').value;
+    var place=document.getElementById('b-place').value.trim();
+    var size=document.getElementById('b-size').value;
+    var budget=document.getElementById('b-budget').value;
+    var timing=document.getElementById('b-timing').value;
+    var first=document.getElementById('b-first').checked;
+    var parts=[];
+    parts.push((style==='Not sure yet'?'A piece (style TBD)':'A '+style.toLowerCase()+' piece'));
+    parts.push(size.toLowerCase());
+    if(place) parts.push('on the '+place.toLowerCase());
+    parts.push(artist.indexOf('No preference')===0?'with whichever artist fits best':'with '+artist.split(' \u2014 ')[0].toLowerCase());
+    parts.push('budget: '+budget.toLowerCase());
+    parts.push('timing: '+timing.toLowerCase());
+    el.textContent='Your request: '+parts.join(', ')+'.'+(first?' First tattoo \u2014 we\u2019ll walk you through everything.':'');
+  }
+  document.addEventListener('input',function(e){
+    if(e.target && e.target.id && e.target.id.indexOf('b-')===0){updateSummary();}
+  });
 
   function bookingDone(form){
     var note=form.querySelector('.form-note');
@@ -770,7 +828,10 @@
     if(day>=1&&day<=6){open=(mins>=720&&mins<1200);}
     else{open=(mins>=720&&mins<1080);}
     var dot=document.getElementById('statusDot'), txt=document.getElementById('statusText');
-    if(!open){dot.classList.add('closed');txt.textContent='Closed now';}
+    if(!open){
+      dot.classList.add('closed');
+      txt.textContent=(mins<720)?'Closed \u2014 opens today at noon':'Closed \u2014 opens tomorrow at noon';
+    }
     document.querySelectorAll('#hoursTable tr').forEach(function(tr){
       if(tr.dataset.days.split(',').indexOf(String(day))>-1){tr.classList.add('today');}
     });
