@@ -100,10 +100,7 @@
     transition:color .2s,background-size .25s;}
   nav.main a:hover{color:var(--ink);background-size:calc(100% - 26px) 2px;}
   nav.main a.on{color:var(--ink);background-size:calc(100% - 26px) 2px;}
-  .share-btn{background:transparent;border:2px solid var(--ink);color:var(--ink);width:42px;height:42px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;}
-  .share-btn:hover,.share-btn:focus-visible{background:var(--ink);color:var(--bg);}
-  @media(max-width:640px){.share-btn{display:none;}}
-  .book-btn{background:var(--ox);color:#FAF8F2;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:12px 18px;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);white-space:nowrap;transition:background .2s,transform .15s,box-shadow .15s;}
+.book-btn{background:var(--ox);color:#FAF8F2;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:12px 18px;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);white-space:nowrap;transition:background .2s,transform .15s,box-shadow .15s;}
   .book-btn:hover,.book-btn:focus-visible{background:var(--ox-h);transform:translate(1px,1px);box-shadow:2px 2px 0 var(--ink);}
   .burger{display:none;background:none;border:2px solid var(--ink);color:var(--ink);padding:9px 13px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;}
   .mobile-nav{display:none;border-top:2px solid var(--ink);background:var(--bg2);}
@@ -176,6 +173,9 @@
   .artist{padding:22px;transition:transform .2s,box-shadow .2s;}
   .artist:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(30,26,20,.16);}
   .artist .seat{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pine);}
+  .avail{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border:1px solid;margin-left:6px;}
+  .avail-open{color:var(--pine);border-color:var(--pine);background:#EDF0EA;}
+  .avail-limited{color:var(--brass);border-color:var(--brass);background:#F4EDE0;}
   .artist h3{margin:6px 0 8px;font-size:1.06rem;}
   .artist .styles{font-size:.88rem;font-style:italic;color:var(--mut);}
   .artist .ig{margin-top:12px;display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.08em;border-bottom:1.5px solid var(--ox);text-decoration:none;transition:color .2s;}
@@ -212,7 +212,8 @@
   .form-note{margin-top:12px;font-size:.88rem;text-align:center;color:var(--mut);}
   .success-state{border:2px solid var(--pine);background:#EDF0EA;padding:26px 22px;text-align:left;}
   .success-check{width:44px;height:44px;border-radius:50%;background:var(--pine);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:10px;font-weight:700;}
-  .success-state h3{font-family:'Bebas Neue';font-weight:400;letter-spacing:.04em;font-size:1.5rem;margin-bottom:8px;color:var(--ink);}
+  .success-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:4px;}
+  .success-state h3{font-family:'Bebas Neue';font-weight:400;letter-spacing:.04em;font-size:1.5rem;color:var(--ink);}
   .next-steps{margin:14px 0 0 0;padding-left:20px;}
   .next-steps li{margin-bottom:12px;font-size:.96rem;color:var(--ink);}
   .req-summary{margin-top:20px;border-left:4px solid var(--ox);background:var(--paper);padding:12px 16px;font-size:.93rem;font-style:italic;color:var(--ink);}
@@ -232,6 +233,8 @@
   .giftcard{background:var(--pine);color:#E3E8DF;border:2px solid var(--ink);outline:1px solid var(--brass);outline-offset:4px;padding:26px;box-shadow:0 10px 26px rgba(30,26,20,.16);}
   .giftcard h3{font-family:'Bebas Neue';font-weight:400;letter-spacing:.05em;font-size:1.5rem;color:#fff;}
   .giftcard p{font-size:.94rem;color:#C7D2C6;margin-top:8px;}
+  .giftcard-cta{display:inline-block;margin-top:16px;background:#FAF8F2;color:var(--ink);border:2px solid var(--ink);}
+  .giftcard-cta:hover{background:var(--ink);color:#FAF8F2;}
   .merch-note{margin-top:22px;border:2px solid var(--hair);background:var(--sheet);padding:16px 20px;font-size:.94rem;color:var(--mut);}
   .merch-note b{color:var(--brass);}
 
@@ -267,13 +270,29 @@
     .util,header,.callbar,footer,.print-btn,.trust{display:none!important;}
     body{background:#fff;color:#000;font-size:12pt;}
     .page{display:block!important;}
-    #page-home,#page-artists,#page-booking,#page-merch{display:none!important;}
-    #page-info section:not(:first-of-type){display:none;}
+    /* Aftercare card printing (Info page) */
+    body:not(.printing-booking) #page-home,
+    body:not(.printing-booking) #page-artists,
+    body:not(.printing-booking) #page-booking,
+    body:not(.printing-booking) #page-merch{display:none!important;}
+    body:not(.printing-booking) #page-info section:not(:first-of-type){display:none;}
     .care-step{page-break-inside:avoid;background:#fff;border:1.5pt solid #000;box-shadow:none;outline:none;}
     .care-step::before{background:#000;color:#fff;border-color:#000;}
     .care{grid-template-columns:1fr 1fr;gap:10pt;}
     h2{color:#000;}
     @page{margin:.6in;}
+    /* Booking confirmation printing */
+    body.printing-booking #page-home,
+    body.printing-booking #page-artists,
+    body.printing-booking #page-merch,
+    body.printing-booking #page-info{display:none!important;}
+    body.printing-booking #page-booking .intake-head,
+    body.printing-booking .quiz,
+    body.printing-booking .booking-status-bar,
+    body.printing-booking form,
+    body.printing-booking .deposit-strip{display:none!important;}
+    body.printing-booking .success-state{border:1.5pt solid #000;background:#fff;box-shadow:none;}
+    body.printing-booking .success-state h3{color:#000;}
   }
   .care{counter-reset:step;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
   .care-step{padding:22px;position:relative;}
@@ -301,6 +320,8 @@
   .gbadge .stars{color:var(--ox);letter-spacing:2px;}
   .gbadge .sub{font-size:.78rem;color:var(--mut);}
   .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .press-strip{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:14px;padding:22px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);}
+  .press-item{font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:.03em;font-size:1rem;color:var(--mut);opacity:.75;}
   .review{border:2px solid var(--ink);background:var(--sheet);padding:22px;transition:transform .2s,box-shadow .2s;}
   .review:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(30,26,20,.12);}
   .review .stars{color:var(--ox);letter-spacing:2px;}
@@ -326,7 +347,9 @@
   footer h4{color:#EDE8DB;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;}
   footer a{text-decoration:none;display:block;padding:3px 0;transition:color .2s;}
   footer a:hover{color:#C9A96A;}
-  .fbot{border-top:1px solid rgba(233,224,210,.16);margin-top:30px;padding-top:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.76rem;color:#7E7663;}
+  .fbot{border-top:1px solid rgba(233,224,210,.16);margin-top:30px;padding-top:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.76rem;color:#7E7663;align-items:center;}
+  .footer-share{background:none;border:1px solid rgba(233,224,210,.25);color:#B9B1A0;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;cursor:pointer;transition:border-color .2s,color .2s;}
+  .footer-share:hover,.footer-share:focus-visible{border-color:#C9A96A;color:#C9A96A;}
 
   .callbar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:60;background:var(--ink);border-top:2px solid var(--ink);}
   .callbar-action{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;color:#EDE8DB;text-decoration:none;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;font-size:.72rem;padding:15px 6px;transition:background .2s;border-right:1px solid rgba(233,224,210,.14);}
@@ -402,8 +425,19 @@ window.SHOP_INFO = {
   depositAmount: "$100",
   flashDate:     "First Friday, every month",
   flashPrice:    "$100 flat",
-  bookingStatus: "Currently booking into next month"
+  bookingStatus: "Currently booking into next month",
+  lastUpdated:   "Site updated March 2026"
 };
+
+/* ================================================================
+   REVIEWS — edit this list to change what shows on the Home page.
+   Add, remove, or reorder entries freely; each needs quote + who.
+   ================================================================ */
+window.SHOP_REVIEWS = [
+  { quote: "Sent the booking form on a Tuesday, had a consult Thursday, and the drawing was better than what I asked for.", who: "Sample review" },
+  { quote: "First tattoo. They talked me through every step and the shop was cleaner than my dentist's office.", who: "Sample review" },
+  { quote: "Walked in on a Saturday for flash, out in an hour with a piece I love. Fair price, zero attitude.", who: "Sample review" }
+];
 </script>
 
 <a class="skiplink" href="#main-content">Skip to content</a>
@@ -426,9 +460,6 @@ window.SHOP_INFO = {
       <a href="#/merch" data-page="merch">Merch</a>
       <a href="#/info" data-page="info">Info</a>
     </nav>
-    <button class="share-btn" onclick="shareSite()" aria-label="Share this site" title="Share">
-      <span aria-hidden="true">&#8683;</span>
-    </button>
     <a class="book-btn" href="#/booking">Request a booking</a>
     <button class="burger" aria-expanded="false" aria-controls="mnav" onclick="var m=document.getElementById('mnav');var o=m.classList.toggle('open');this.setAttribute('aria-expanded',o);">Menu</button>
   </div>
@@ -642,22 +673,18 @@ window.SHOP_INFO = {
             </span>
           </div>
         </div>
-        <div class="reviews">
-          <div class="review">
-            <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p>"Sent the booking form on a Tuesday, had a consult Thursday, and the drawing was better than what I asked for."</p>
-            <div class="who">&mdash; Sample review</div>
-          </div>
-          <div class="review">
-            <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p>"First tattoo. They talked me through every step and the shop was cleaner than my dentist's office."</p>
-            <div class="who">&mdash; Sample review</div>
-          </div>
-          <div class="review">
-            <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p>"Walked in on a Saturday for flash, out in an hour with a piece I love. Fair price, zero attitude."</p>
-            <div class="who">&mdash; Sample review</div>
-          </div>
+        <div class="reviews" id="reviewsList"></div>
+      </div>
+    </section>
+
+    <section style="padding-top:0;">
+      <div class="wrap">
+        <span class="mono eyebrow" style="text-align:center;display:block;">As seen in</span>
+        <div class="press-strip">
+          <span class="press-item">Santa Barbara Independent</span>
+          <span class="press-item">Noozhawk</span>
+          <span class="press-item">SB Local Guide</span>
+          <span class="press-item">Edhat</span>
         </div>
       </div>
     </section>
@@ -691,28 +718,28 @@ window.SHOP_INFO = {
         <h2>Resident artists</h2>
         <div class="artists">
           <div class="artist sheet">
-            <span class="seat">Chair one</span>
+            <span class="seat">Chair one</span> <span class="avail avail-open">Booking now</span>
             <h3>Resident Artist</h3>
             <p class="styles">American traditional &middot; bold color &middot; flash</p>
             <!-- ARTIST 1 INSTAGRAM LINK — replace both the href URL and the @handle text below -->
             <a class="ig" href="https://instagram.com/artist1handle" target="_blank" rel="noopener">@artist1handle</a>
           </div>
           <div class="artist sheet">
-            <span class="seat">Chair two</span>
+            <span class="seat">Chair two</span> <span class="avail avail-open">Booking now</span>
             <h3>Resident Artist</h3>
             <p class="styles">Japanese &middot; large scale &middot; sleeves</p>
             <!-- ARTIST 2 INSTAGRAM LINK — replace both the href URL and the @handle text below -->
             <a class="ig" href="https://instagram.com/artist2handle" target="_blank" rel="noopener">@artist2handle</a>
           </div>
           <div class="artist sheet">
-            <span class="seat">Chair three</span>
+            <span class="seat">Chair three</span> <span class="avail avail-limited">Limited slots</span>
             <h3>Resident Artist</h3>
             <p class="styles">Fine line &middot; script &middot; micro work</p>
             <!-- ARTIST 3 INSTAGRAM LINK — replace both the href URL and the @handle text below -->
             <a class="ig" href="https://instagram.com/artist3handle" target="_blank" rel="noopener">@artist3handle</a>
           </div>
           <div class="artist sheet">
-            <span class="seat">Chair four</span>
+            <span class="seat">Chair four</span> <span class="avail avail-open">Booking now</span>
             <h3>Resident Artist</h3>
             <p class="styles">Black &amp; grey &middot; realism &middot; cover-ups</p>
             <!-- ARTIST 4 INSTAGRAM LINK — replace both the href URL and the @handle text below -->
@@ -834,11 +861,16 @@ window.SHOP_INFO = {
             </form>
             <div class="success-state" id="bookingSuccess" hidden>
               <div class="success-check" aria-hidden="true">&#10003;</div>
-              <h3>Request received</h3>
+              <div class="success-head">
+                <h3>Request received</h3>
+                <button class="print-btn" onclick="printBookingConfirmation()" aria-label="Print confirmation">
+                  <span aria-hidden="true">&#128424;</span> Print
+                </button>
+              </div>
               <p>Thanks &mdash; a copy of your request is on its way to your inbox. Here&rsquo;s what happens next:</p>
               <ol class="next-steps">
                 <li><b>We read every request personally</b> and reply within 2 business days with a quote, or a couple of clarifying questions if the idea needs more shape.</li>
-                <li><b>Once we&rsquo;re aligned</b>, a <span data-shop="depositAmount">$100</span> deposit locks your slot on our calendar and pays for your artist&rsquo;s drawing time. It comes off the final price of your tattoo.</li>
+                <li><b>Once we&rsquo;re aligned</b>, a <span data-shop="depositAmount">$100</span> deposit locks your slot on our calendar and pays for your artist&rsquo;s drawing time. It comes off the final price of your tattoo &mdash; for example, a <span data-shop="depositAmount">$100</span> deposit on a $400 piece means <b>$300 due the day of your appointment.</b></li>
                 <li><b>Before your appointment</b>, we&rsquo;ll send you a prep note &mdash; what to eat, wear, and bring. Skim it, then show up.</li>
               </ol>
               <p style="margin-top:16px;font-size:.9rem;color:var(--mut);">Not seeing our email? Check your spam and mark it &ldquo;not spam&rdquo; so future ones land where they should.</p>
@@ -888,6 +920,7 @@ window.SHOP_INFO = {
         <div class="giftcard" style="margin-top:18px;">
           <h3>Gift cards — any amount</h3>
           <p>The right gift for the friend who won't stop talking about their next piece. Available at the counter in any amount; applies to tattoos, flash, and merch.</p>
+          <a class="btn giftcard-cta" data-shop-href="phoneRaw" href="tel:+18055550134">Call to buy a gift card &rarr;</a>
         </div>
         <div class="merch-note">
           <b>How to buy:</b> merch and gift cards are sold at the shop counter, and new drops are
@@ -1042,6 +1075,8 @@ window.SHOP_INFO = {
     </div>
     <div class="fbot">
       <span>&copy; 2026 Iron Bell Tattoo &mdash; Santa Barbara, CA</span>
+      <span class="mono" data-shop="lastUpdated">Site updated March 2026</span>
+      <button class="footer-share" onclick="shareSite()">Share this page</button>
       <span class="mono">Demo site &mdash; fictional studio</span>
     </div>
   </div>
@@ -1173,6 +1208,17 @@ window.SHOP_INFO = {
   // populate every element with data-shop from SHOP_INFO
   (function(){
     if(!window.SHOP_INFO) return;
+    // render reviews from the editable SHOP_REVIEWS list
+    if(window.SHOP_REVIEWS && Array.isArray(SHOP_REVIEWS)){
+      var list = document.getElementById('reviewsList');
+      if(list){
+        list.innerHTML = SHOP_REVIEWS.map(function(r){
+          return '<div class="review"><div class="stars" aria-label="5 out of 5 stars">'
+            + '\u2605\u2605\u2605\u2605\u2605</div><p>"' + r.quote + '"</p>'
+            + '<div class="who">\u2014 ' + r.who + '</div></div>';
+        }).join('');
+      }
+    }
     document.querySelectorAll('[data-shop]').forEach(function(el){
       var key=el.getAttribute('data-shop');
       if(SHOP_INFO[key]!==undefined) el.textContent=SHOP_INFO[key];
@@ -1309,6 +1355,14 @@ window.SHOP_INFO = {
       });
     }
   }
+
+  function printBookingConfirmation(){
+    document.body.classList.add('printing-booking');
+    window.print();
+  }
+  window.addEventListener('afterprint', function(){
+    document.body.classList.remove('printing-booking');
+  });
 
   showPage();
 </script>
