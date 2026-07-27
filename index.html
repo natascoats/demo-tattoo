@@ -582,14 +582,8 @@ window.SHOP_INFO = {
           </div>
           <div class="intake-body">
             <form action="https://api.web3forms.com/submit" method="POST" onsubmit="return handleBooking(event, this);">
-              <!-- ============================================================
-                   WEB3FORMS ACCESS KEY — PASTE HERE
-                   Get your key free at https://web3forms.com — enter the shop's
-                   email, they'll email you a key that looks like a long string
-                   of letters/numbers/dashes. Paste it as the value below,
-                   replacing YOUR-ACCESS-KEY-HERE. Every booking submission will
-                   then arrive at that email automatically.
-                   ============================================================ -->
+              <!-- Web3Forms access key is set below — submissions deliver to the
+                   email address this key is registered to. -->
               <input type="hidden" name="access_key" value="08857bdc-7d7d-4ccc-b665-dc61987a3880">
               <input type="hidden" name="subject" value="New booking request — Iron Bell Tattoo">
               <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
@@ -658,7 +652,7 @@ window.SHOP_INFO = {
               <!-- On the sold version this file input wires straight to Web3Forms\u2019 multi-file
                    attachment field, so reference images arrive in the shop\u2019s inbox with the request. -->
               <label for="b-refs">Reference images (optional \u2014 up to 3)</label>
-              <input id="b-refs" type="file" accept="image/*" multiple aria-describedby="refs-hint">
+              <input id="b-refs" type="file" name="attachment" accept="image/*" multiple aria-describedby="refs-hint">
               <small id="refs-hint" style="display:block;margin-top:6px;font-size:.82rem;color:var(--mut);">JPG or PNG, 8&nbsp;MB max each. Skip if you\u2019d rather bring them in person.</small>
               <label for="b-email">Email</label>
               <input id="b-email" type="email" name="email" autocomplete="email" required>
