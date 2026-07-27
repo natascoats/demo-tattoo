@@ -65,6 +65,7 @@
   :focus-visible{outline:3px solid var(--ox);outline-offset:2px;}
   .skiplink{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--bg);padding:12px 18px;z-index:100;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;}
   .skiplink:focus{left:0;}
+  .scroll-progress{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--ox);z-index:70;transition:width .1s linear;}
 
   .page{display:none;}
   .page.active{display:block;animation:pageIn .4s ease;}
@@ -122,6 +123,12 @@
   .flash-art svg{width:100%;height:auto;display:block;filter:drop-shadow(0 12px 26px rgba(30,26,20,.22));}
   .walkin{position:absolute;top:-14px;right:14px;background:var(--brass);color:#FAF8F2;border:2px solid var(--ink);padding:7px 14px;font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;transform:rotate(2deg);z-index:2;}
 
+  .statband{background:var(--dark);color:#EDE8DB;}
+  .statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:36px 20px;text-align:center;}
+  .stat{display:flex;flex-direction:column;gap:4px;}
+  .stat-num{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(2rem,4.2vw,2.8rem);color:#C9A96A;line-height:1;}
+  .stat-label{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#B9B1A0;}
+  @media(max-width:700px){.statgrid{grid-template-columns:1fr 1fr;}}
   .trust{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);background:var(--bg2);}
   .trust .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:16px 20px;}
   .tb{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);display:flex;align-items:center;gap:9px;}
@@ -203,6 +210,25 @@
   .merch-note{margin-top:22px;border:2px solid var(--hair);background:var(--sheet);padding:16px 20px;font-size:.94rem;color:var(--mut);}
   .merch-note b{color:var(--brass);}
 
+  .quiz{padding:32px 30px;}
+  .quiz-head{margin-bottom:4px;}
+  .quiz-sub{color:var(--mut);font-size:.96rem;margin-bottom:22px;}
+  .quiz-step{display:none;}
+  .quiz-step.active{display:block;animation:pageIn .35s ease;}
+  .quiz-result{display:none;}
+  .quiz-result.active{display:block;animation:pageIn .35s ease;}
+  .quiz-q{font-family:'Bebas Neue';letter-spacing:.04em;font-size:1.25rem;margin-bottom:14px;color:var(--ink);}
+  .quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .quiz-opt{border:2px solid var(--ink);background:var(--bg);color:var(--ink);padding:14px 16px;text-align:left;font-family:'Lora',Georgia,serif;font-size:.96rem;cursor:pointer;transition:background .2s,color .2s,transform .15s;}
+  .quiz-opt:hover,.quiz-opt:focus-visible{background:var(--ox);color:#FAF8F2;border-color:var(--ink);transform:translateY(-2px);}
+  .quiz-result-card{border:2px solid var(--pine);background:#EDF0EA;padding:18px 20px;margin-top:6px;}
+  .quiz-result-card h3{font-family:'Bebas Neue';font-weight:400;letter-spacing:.04em;font-size:1.4rem;color:var(--pine);}
+  .quiz-result-card p{margin-top:6px;color:var(--ink);font-size:.96rem;}
+  @media(max-width:600px){.quiz-options{grid-template-columns:1fr;}}
+  .back-to-top{position:fixed;bottom:24px;right:20px;width:46px;height:46px;border:2px solid var(--ink);background:var(--ox);color:#FAF8F2;font-size:1.1rem;cursor:pointer;z-index:55;opacity:0;pointer-events:none;transition:opacity .25s,transform .15s;box-shadow:3px 3px 0 var(--ink);}
+  .back-to-top.show{opacity:1;pointer-events:auto;}
+  .back-to-top:hover,.back-to-top:focus-visible{transform:translateY(-3px);}
+  @media(max-width:860px){.back-to-top{bottom:80px;}}
   .poster{text-align:center;padding:40px 28px;background:var(--dark);color:#EDE8DB;border:2px solid var(--ink);outline:1px solid var(--brass);outline-offset:4px;box-shadow:0 12px 28px rgba(30,26,20,.2);}
   .poster h2{color:#fff;margin-bottom:6px;}
   .poster .big{font-family:'Pirata One';font-size:clamp(2rem,4.5vw,3rem);color:#C9A96A;}
@@ -263,6 +289,8 @@
   .hours tr.today td{color:var(--ox);font-weight:600;}
   table{width:100%;border-collapse:collapse;}
   .map{margin-top:22px;border:2px solid var(--ink);background:repeating-linear-gradient(45deg,#EFE9DA 0 12px,#F6F1E4 12px 24px);height:150px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-align:center;padding:10px;}
+  .map-embed{margin-top:22px;line-height:0;box-shadow:0 8px 20px rgba(30,26,20,.14);}
+  .map-embed iframe{display:block;}
 
   footer{border-top:2px solid var(--ink);background:var(--dark);color:#B9B1A0;padding:38px 0 100px;font-size:.92rem;}
   .fgrid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:30px;}
@@ -309,6 +337,8 @@
 </script>
 </head>
 <body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <script>
 /* ================================================================
@@ -417,6 +447,15 @@ window.SHOP_INFO = {
       </div>
     </div>
 
+    <div class="statband">
+      <div class="wrap statgrid">
+        <div class="stat"><span class="stat-num" data-count="14">0</span><span class="stat-label">Years in Santa Barbara</span></div>
+        <div class="stat"><span class="stat-num" data-count="4">0</span><span class="stat-label">Resident artists</span></div>
+        <div class="stat"><span class="stat-num" data-count="2100" data-suffix="+">0</span><span class="stat-label">Tattoos completed</span></div>
+        <div class="stat"><span class="stat-num" data-count="49" data-decimal="1"></span><span class="stat-label">Average Google rating</span></div>
+      </div>
+    </div>
+
     <div class="trust">
       <div class="wrap">
         <span class="tb">Hospital-grade sterilization</span>
@@ -440,6 +479,46 @@ window.SHOP_INFO = {
           <div class="style"><h3>Script &amp; Lettering</h3><p>Hand-drawn lettering that reads clean at any size.</p></div>
           <div class="style"><h3>Cover-ups &amp; Rework</h3><p>Old ink fixed, reworked, or buried properly.</p></div>
           <div class="style"><h3>Flash</h3><p>Ready-to-go designs off the wall, walk-in friendly.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:0;">
+      <div class="wrap">
+        <div class="quiz sheet" id="styleQuiz">
+          <div class="quiz-head">
+            <span class="mono eyebrow" style="margin-bottom:4px;">Not sure where to start?</span>
+            <h2 style="margin-bottom:0;">Find Your Style</h2>
+          </div>
+          <p class="quiz-sub">Answer two quick questions and we'll point you to the style and artist that fits.</p>
+          <div class="quiz-step active" data-step="1">
+            <p class="quiz-q">What pulls you in more?</p>
+            <div class="quiz-options">
+              <button type="button" class="quiz-opt" data-q="1" data-val="bold">Bold color &amp; solid lines</button>
+              <button type="button" class="quiz-opt" data-q="1" data-val="detail">Fine detail &amp; delicate linework</button>
+              <button type="button" class="quiz-opt" data-q="1" data-val="scale">Big, flowing, large-scale pieces</button>
+              <button type="button" class="quiz-opt" data-q="1" data-val="shading">Soft shading &amp; realism</button>
+            </div>
+          </div>
+          <div class="quiz-step" data-step="2">
+            <p class="quiz-q">How big are you thinking?</p>
+            <div class="quiz-options">
+              <button type="button" class="quiz-opt" data-q="2" data-val="small">Small &mdash; palm-size or under</button>
+              <button type="button" class="quiz-opt" data-q="2" data-val="medium">Medium &mdash; a clear focal piece</button>
+              <button type="button" class="quiz-opt" data-q="2" data-val="large">Large &mdash; sleeve or panel</button>
+            </div>
+          </div>
+          <div class="quiz-result" data-step="result">
+            <p class="quiz-q" style="margin-bottom:6px;">Sounds like a good fit:</p>
+            <div class="quiz-result-card">
+              <h3 id="quizStyleName">&nbsp;</h3>
+              <p id="quizArtistName">&nbsp;</p>
+            </div>
+            <div class="actions" style="margin-top:16px;">
+              <a class="btn primary" href="#/booking" id="quizBookLink">Start your request</a>
+              <button type="button" class="btn" onclick="resetQuiz()">Start over</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -649,11 +728,6 @@ window.SHOP_INFO = {
               </div>
               <label for="b-idea">Tell us about the piece</label>
               <textarea id="b-idea" rows="4" name="message" placeholder="The idea, any imagery you love, and anything it needs to work around (existing tattoos, scars)..."></textarea>
-              <!-- On the sold version this file input wires straight to Web3Forms\u2019 multi-file
-                   attachment field, so reference images arrive in the shop\u2019s inbox with the request. -->
-              <label for="b-refs">Reference images (optional \u2014 up to 3)</label>
-              <input id="b-refs" type="file" name="attachment" accept="image/*" multiple aria-describedby="refs-hint">
-              <small id="refs-hint" style="display:block;margin-top:6px;font-size:.82rem;color:var(--mut);">JPG or PNG, 8&nbsp;MB max each. Skip if you\u2019d rather bring them in person.</small>
               <label for="b-email">Email</label>
               <input id="b-email" type="email" name="email" autocomplete="email" required>
               <div class="req-summary" id="reqSummary" aria-live="polite">Your request so far: pick an artist, style, and placement above and it builds itself here.</div>
@@ -801,7 +875,17 @@ window.SHOP_INFO = {
           <p style="margin-top:22px;color:var(--mut);">1230 Sample St, Downtown Santa Barbara, CA<br>
           <a href="tel:+18055550134" style="font-weight:600;text-decoration:none;color:var(--bone);">(805) 555-0134</a><br>
           <a href="mailto:hello@example.com" style="text-decoration:none;">hello@example.com</a></p>
-          <div class="map" role="img" aria-label="Map placeholder">[ Live Google Map embeds here on the real site ]</div>
+          <div class="map-embed">
+            <!-- Live Google Maps embed — no API key needed for this basic version.
+                 To point it at a different address, replace the q= value in the src URL
+                 below with the shop's real address (URL-encoded, spaces as +). -->
+            <iframe
+              src="https://maps.google.com/maps?q=Santa+Maria+Town+Center+Mall%2C+Santa+Maria%2C+CA&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              width="100%" height="260" style="border:2px solid var(--ink);"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              title="Shop location map" aria-label="Map showing shop location">
+            </iframe>
+          </div>
         </div>
         <div>
           <span class="mono eyebrow">Prep for your appointment</span>
@@ -856,6 +940,8 @@ window.SHOP_INFO = {
 <div class="callbar">
   <a href="#/booking">Request a booking &mdash; replies in 2 days</a>
 </div>
+
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">&#8593;</button>
 
 <script>
   // ---- simple page router (multi-page feel, single file) ----
@@ -985,6 +1071,98 @@ window.SHOP_INFO = {
       // logos kept as branded markup — don\u2019t auto-overwrite
     }
   })();
+
+  // ---- scroll progress bar + back-to-top visibility ----
+  (function(){
+    var bar = document.getElementById('scrollProgress');
+    var toTop = document.getElementById('backToTop');
+    function onScroll(){
+      var h = document.documentElement;
+      var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+      if(bar) bar.style.width = (scrolled || 0) + '%';
+      if(toTop) toTop.classList.toggle('show', h.scrollTop > 500);
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  })();
+
+  // ---- animated stat counters (run once, when scrolled into view) ----
+  (function(){
+    var nums = document.querySelectorAll('.stat-num');
+    if(!nums.length) return;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function animateCount(el){
+      var target = parseFloat(el.getAttribute('data-count'));
+      var decimals = parseInt(el.getAttribute('data-decimal') || '0', 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      if(reduced){
+        el.textContent = (decimals ? (target/10).toFixed(1) : target) + suffix;
+        return;
+      }
+      var duration = 1400, start = null;
+      function step(ts){
+        if(!start) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = target * eased;
+        el.textContent = (decimals ? (current/10).toFixed(1) : Math.floor(current)) + suffix;
+        if(progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ animateCount(e.target); io.unobserve(e.target); }
+      });
+    }, {threshold: .4});
+    nums.forEach(function(el){ io.observe(el); });
+  })();
+
+  // ---- "Find Your Style" quiz ----
+  var quizAnswers = {};
+  var quizResults = {
+    'bold-small':   {style:'American Traditional flash', artist:'Best fit: Chair One \u2014 bold color & flash specialist.'},
+    'bold-medium':  {style:'American Traditional', artist:'Best fit: Chair One \u2014 bold color, built to last.'},
+    'bold-large':   {style:'Neo-Traditional panel work', artist:'Best fit: Chair One, with input from Chair Two on composition.'},
+    'detail-small': {style:'Fine Line / Script', artist:'Best fit: Chair Three \u2014 fine line & micro work specialist.'},
+    'detail-medium':{style:'Fine Line', artist:'Best fit: Chair Three \u2014 delicate single-needle detail.'},
+    'detail-large': {style:'Fine Line sleeve work', artist:'Best fit: Chair Three, planned across multiple sessions.'},
+    'scale-small':  {style:'Japanese-influenced accent piece', artist:'Best fit: Chair Two \u2014 large-scale specialist, scaled down.'},
+    'scale-medium': {style:'Japanese', artist:'Best fit: Chair Two \u2014 built for flow and movement.'},
+    'scale-large':  {style:'Japanese sleeve or back piece', artist:'Best fit: Chair Two \u2014 large-scale bodywork is the specialty.'},
+    'shading-small':{style:'Black & Grey accent', artist:'Best fit: Chair Four \u2014 shading & realism specialist.'},
+    'shading-medium':{style:'Black & Grey', artist:'Best fit: Chair Four \u2014 smooth shading and soft realism.'},
+    'shading-large':{style:'Black & Grey realism piece', artist:'Best fit: Chair Four, planned for the detail a larger canvas allows.'}
+  };
+  function initQuiz(){
+    var quiz = document.getElementById('styleQuiz');
+    if(!quiz) return;
+    quiz.querySelectorAll('.quiz-opt').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var q = btn.getAttribute('data-q');
+        quizAnswers[q] = btn.getAttribute('data-val');
+        if(q === '1'){
+          quiz.querySelector('[data-step="1"]').classList.remove('active');
+          quiz.querySelector('[data-step="2"]').classList.add('active');
+        } else {
+          quiz.querySelector('[data-step="2"]').classList.remove('active');
+          var key = quizAnswers['1'] + '-' + quizAnswers['2'];
+          var result = quizResults[key] || {style:'A custom piece tailored to you', artist:'Any of our four chairs can take this on \u2014 tell us your idea and we\u2019ll match you.'};
+          document.getElementById('quizStyleName').textContent = result.style;
+          document.getElementById('quizArtistName').textContent = result.artist;
+          quiz.querySelector('.quiz-result').classList.add('active');
+        }
+      });
+    });
+  }
+  function resetQuiz(){
+    quizAnswers = {};
+    var quiz = document.getElementById('styleQuiz');
+    if(!quiz) return;
+    quiz.querySelectorAll('.quiz-step, .quiz-result').forEach(function(el){ el.classList.remove('active'); });
+    quiz.querySelector('[data-step="1"]').classList.add('active');
+  }
+  initQuiz();
 
   showPage();
 </script>
