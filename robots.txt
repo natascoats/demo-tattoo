@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ironbelltattoo.example.com/sitemap.xml
