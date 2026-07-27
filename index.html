@@ -596,7 +596,7 @@ window.SHOP_INFO = {
               <div class="grid2">
                 <div>
                   <label for="b-artist">Artist</label>
-                  <select id="b-artist">
+                  <select id="b-artist" name="artist">
                     <option>No preference — match me</option>
                     <option>Chair one — traditional / color</option>
                     <option>Chair two — Japanese / large scale</option>
@@ -606,7 +606,7 @@ window.SHOP_INFO = {
                 </div>
                 <div>
                   <label for="b-style">Style</label>
-                  <select id="b-style">
+                  <select id="b-style" name="style">
                     <option>Not sure yet</option>
                     <option>American traditional</option>
                     <option>Japanese</option>
@@ -618,11 +618,11 @@ window.SHOP_INFO = {
                 </div>
                 <div>
                   <label for="b-place">Placement</label>
-                  <input id="b-place" type="text" placeholder="Forearm, calf, ribs...">
+                  <input id="b-place" type="text" name="placement" placeholder="Forearm, calf, ribs...">
                 </div>
                 <div>
                   <label for="b-size">Approximate size</label>
-                  <select id="b-size">
+                  <select id="b-size" name="size">
                     <option>Palm-size or smaller</option>
                     <option>Palm to hand-size</option>
                     <option>Half sleeve / large panel</option>
@@ -631,7 +631,7 @@ window.SHOP_INFO = {
                 </div>
                 <div>
                   <label for="b-budget">Budget range</label>
-                  <select id="b-budget">
+                  <select id="b-budget" name="budget">
                     <option>Under $200</option>
                     <option>$200 – $500</option>
                     <option>$500 – $1,000</option>
@@ -641,7 +641,7 @@ window.SHOP_INFO = {
                 </div>
                 <div>
                   <label for="b-timing">When works for you?</label>
-                  <select id="b-timing">
+                  <select id="b-timing" name="timing">
                     <option>Flexible — first opening</option>
                     <option>Weekday afternoons</option>
                     <option>Weekday evenings</option>
@@ -650,21 +650,21 @@ window.SHOP_INFO = {
                 </div>
                 <div>
                   <label for="b-name">Your name</label>
-                  <input id="b-name" type="text" autocomplete="name" required>
+                  <input id="b-name" type="text" name="name" autocomplete="name" required>
                 </div>
               </div>
               <label for="b-idea">Tell us about the piece</label>
-              <textarea id="b-idea" rows="4" placeholder="The idea, any imagery you love, and anything it needs to work around (existing tattoos, scars)..."></textarea>
+              <textarea id="b-idea" rows="4" name="message" placeholder="The idea, any imagery you love, and anything it needs to work around (existing tattoos, scars)..."></textarea>
               <!-- On the sold version this file input wires straight to Web3Forms\u2019 multi-file
                    attachment field, so reference images arrive in the shop\u2019s inbox with the request. -->
               <label for="b-refs">Reference images (optional \u2014 up to 3)</label>
               <input id="b-refs" type="file" accept="image/*" multiple aria-describedby="refs-hint">
               <small id="refs-hint" style="display:block;margin-top:6px;font-size:.82rem;color:var(--mut);">JPG or PNG, 8&nbsp;MB max each. Skip if you\u2019d rather bring them in person.</small>
               <label for="b-email">Email</label>
-              <input id="b-email" type="email" autocomplete="email" required>
+              <input id="b-email" type="email" name="email" autocomplete="email" required>
               <div class="req-summary" id="reqSummary" aria-live="polite">Your request so far: pick an artist, style, and placement above and it builds itself here.</div>
-              <div class="checkline"><input id="b-first" type="checkbox"><label for="b-first">This is my first tattoo</label></div>
-              <div class="checkline"><input id="b-age" type="checkbox" required><label for="b-age">I'm 18+ and can show valid ID</label></div>
+              <div class="checkline"><input id="b-first" type="checkbox" name="first_tattoo" value="Yes"><label for="b-first">This is my first tattoo</label></div>
+              <div class="checkline"><input id="b-age" type="checkbox" name="age_confirmed" value="Yes" required><label for="b-age">I'm 18+ and can show valid ID</label></div>
               <button class="submit" type="submit">Send booking request</button>
               <p class="form-note">Reference images? Bring them to your consult or reply to our email with attachments.</p>
             </form>
